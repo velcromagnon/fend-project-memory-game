@@ -1,36 +1,37 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+  background: #fff url(../img/geometry2.png); /* Background pattern from Subtle Patterns */
+  font-family: "Coda", cursive;
+  min-width: 300px;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
 }
 
 /*
@@ -38,47 +39,104 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
+  width: 660px;
+  min-height: 680px;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
+}
+
+.deck.demonic {
+  background: linear-gradient(-180deg, red 0%, yellow 100%);
+}
+
+.deck.angelic {
+  background: linear-gradient(160deg, #baf 0%, lightblue 100%);
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
-    background: #2e3d49;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  height: 125px;
+  width: 125px;
+  background: #2e3d49;
+  font-size: 0;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
-.deck .card.open {
-    transform: rotateY(0);
-    background: #02b3e4;
-    cursor: default;
+/* Container that allows us to flip the card in the right position. */
+.flip-container {
+  perspective: 1000px;
+  height: 125px;
+  width: 125px;
 }
 
-.deck .card.show {
-    font-size: 33px;
+/* Animation type for flipping cards. */
+.flip-container.flipped .flipper {
+  transform: rotateY(180deg);
 }
 
+/* Size of all cards. */
+.flip-container,
+.front,
+.back {
+  width: 125px;
+  height: 125px;
+}
+
+/* Animation definition for flipping. */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.front,
+.back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.deck .card.back {
+  transform: rotateY(180deg);
+  font-size: 40px;
+  background: #02ccba;
+}
+
+/* Show mismatched cards in red. */
+.deck .card.mismatch {
+  cursor: default;
+  background: red;
+  font-size: 40px;
+}
+
+/* Show matched cards in a cyan-green color. */
 .deck .card.match {
-    cursor: default;
-    background: #02ccba;
-    font-size: 33px;
+  cursor: default;
+  background: #02b3e4;
+  font-size: 40px;
+}
+
+/* Remove the pesky dots. */
+ul {
+  list-style-type: none;
 }
 
 /*
@@ -86,24 +144,114 @@ h1 {
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
-    margin-bottom: 10px;
+  text-align: left;
+  width: 345px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  height: 40px;
 }
 
 .score-panel .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
+  width: 25%;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
 }
 
 .score-panel .stars li {
-    list-style: none;
-    display: inline-block;
+  display: inline-block;
+}
+
+.score-panel .timer {
+  width: 30%;
+  text-align: center;
+  margin: 30px;
 }
 
 .score-panel .restart {
-    float: right;
-    cursor: pointer;
+  float: right;
+  cursor: pointer;
+}
+
+/* Styles for displaying the win screen using an overlay */
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0;
+  opacity: 1.0;
+}
+
+.angelic {
+  background-color: #66C;
+  font-family: 'Pinyon Script', cursive;
+  color: white;
+}
+
+.demonic {
+  background-color: #A03030;
+  color: yellow;
+  font-family: 'Butcherman', cursive;
+}
+
+/* Win screen content styling */
+.overlay-content {
+  position: relative;
+  top: 25%; /* 25% from the top */
+  width: 100%; /* 100% width */
+  text-align: center; /* Centered text/links */
+  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* Purple is the color of winning. */
+.replay {
+  background-color: #8a8aff;
+}
+
+/* Mid-size screens (tablets). */
+@media screen and (min-width: 401px) and (max-width: 999px) {
+  .deck {
+    width: 380px;
+    min-height: 400px;
+    padding: 22px;
+  }
+  .deck .card.mismatch,
+  .deck .card.match,
+  .deck .card.back {
+    font-size: 26px;
+  }
+
+  .deck .card,
+  .flip-container {
+    height: 72px;
+    width: 72px;
+  }
+}
+
+/* Mobile device styling. */
+@media screen and (max-width: 400px) {
+  .deck {
+    width: 300px;
+    min-height: 315px;
+    padding: 15px;
+  }
+  .deck .card.mismatch,
+  .deck .card.match,
+  .deck .card.back {
+    font-size: 21px;
+  }
+  .score-panel {
+    width: 280px;
+    font-size: 14px;
+  }
+  .deck .card,
+  .flip-container {
+    height: 55px;
+    width: 55px;
+  }
 }

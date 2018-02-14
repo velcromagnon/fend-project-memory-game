@@ -2,19 +2,19 @@
 
 ## Table of Contents
 
+* [Setup](#setup)
+* [Background](#background)
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+
+## Setup
+In order to set up the game, please either clone this repository or copy all of the files to a local location. Then simply open index.html and the game will start.
+
+## Background
+This game is derived from a children's game called Concentration.
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+There is a grid of 16 symbols, in random locations.
+The object is to try to guess the pairs of symbols in as few attempts as possible. Once all pairs have been
+guessed, you win the game and it will show you how many moves, how long it took, and your rating, and give
+you a chance to play again.
