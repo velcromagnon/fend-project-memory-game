@@ -8,6 +8,7 @@
 
 ## Setup
 In order to set up the game, please either clone this repository or copy all of the files to a local location. Then simply open index.html and the game will start.
+In addition, you may run the game directly by clicking [here](https://velcromagnon.github.io/fend-project-memory-game/).
 
 ## Background
 This game is derived from a children's game called Concentration.
